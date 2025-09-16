@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Savory Delights Restaurant</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    body::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    body {
+      -ms-overflow-style: none;
+      /* IE and Edge */
+      scrollbar-width: 0px;
+      /* Firefox */
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #e0e0e0;
+      color: #333;
+      transition: all 0.4s ease;
+      min-height: 100vh;
+      padding-top: 80px;
+      overflow-x: hidden;
+    }
+
+    body.dark-mode {
+      background: #222;
+      color: #eee;
+    }
+
+    /* Header and Navigation */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      background: #e0e0e0;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      transition: background 0.3s ease;
+    }
+
+    body.dark-mode .header {
+      background: #333;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #555;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    body.dark-mode .logo {
+      color: #eee;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      border-radius: 50%;
+      color: white;
+    }
+
+    /* Header right section with search, login and menu */
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    /* Search container with hover functionality */
+    .search-container {
+      position: relative;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      transition: all 0.4s ease;
+    }
+
+    .search-input {
+      width: 0;
+      height: 50px;
+      border: none;
+      background: #e0e0e0;
+      border-radius: 25px;
+      padding: 0 20px;
+      font-size: 18px;
+      outline: none;
+      opacity: 0;
+      transition: all 0.4s ease;
+      box-shadow:
+        inset 3px 3px 5px rgba(0, 0, 0, 0.2),
+        inset -3px -3px 5px rgba(255, 255, 255, 0.8);
+    }
+
+    body.dark-mode .search-input {
+      background: #333;
+      color: #eee;
+      box-shadow:
+        inset 3px 3px 5px rgba(0, 0, 0, 0.5),
+        inset -3px -3px 5px rgba(60, 60, 60, 0.8);
+    }
+
+    .search-icon {
+      width: 50px;
+      height: 50px;
+      background: #e0e0e0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 2;
+      box-shadow:
+        3px 3px 5px rgba(0, 0, 0, 0.2),
+        -3px -3px 5px rgba(255, 255, 255, 0.8);
+      transition: all 0.4s ease;
+      position: absolute;
+      right: 0;
+    }
+
+    body.dark-mode .search-icon {
+      background: #333;
+      box-shadow:
+        3px 3px 5px rgba(0, 0, 0, 0.5),
+        -3px -3px 5px rgba(60, 60, 60, 0.8);
+    }
+
+    .search-icon i {
+      font-size: 20px;
+      color: #555;
+    }
+
+    body.dark-mode .search-icon i {
+      color: #aaa;
+    }
+
+    /* Hover state for search */
+    .search-container:hover .search-input {
+      width: 250px;
+      opacity: 1;
+      padding-right: 60px;
+    }
+
+    .search-container:hover .search-icon {
+      background: transparent;
+      box-shadow: none;
+    }
+
+    /* Login/Signup Button */
+    .login-btn {
+      padding: 10px 20px;
+      background: #e0e0e0;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 600;
+      color: #555;
+      box-shadow:
+        3px 3px 5px rgba(0, 0, 0, 0.2),
+        -3px -3px 5px rgba(255, 255, 255, 0.8);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    body.dark-mode .login-btn {
+      background: #333;
+      color: #eee;
+      box-shadow:
+        3px 3px 5px rgba(0, 0, 0, 0.5),
+        -3px -3px 5px rgba(60, 60, 60, 0.8);
+    }
+
+    .login-btn:hover {
+      box-shadow:
+        inset 3px 3px 5px rgba(0, 0, 0, 0.2),
+        inset -3px -3px 5px rgba(255, 255, 255, 0.8);
+      transform: translateY(2px);
+    }
+
+    body.dark-mode .login-btn:hover {
+      box-shadow:
+        inset 3px 3px 5px rgba(0, 0, 0, 0.5),
+        inset -3px -3px 5px rgba(60, 60, 60, 0.8);
+    }
+
+    /* Menu button */
+    .menu-btn {
+      width: 50px;
+      height: 50px;
+      background: #e0e0e0;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow:
+        3px 3px 5px rgba(0, 0, 0, 0.2),
+        -3px -3px 5px rgba(255, 255, 255, 0.8);
+      z-index: 101;
+    }
+
+    body.dark-mode .menu-btn {
+      background: #333;
+      box-shadow:
+        3px 3px 5px rgba(0, 0, 0, 0.5),
+        -3px -3px 5px rgba(60, 60, 60, 0.8);
+    }
+
+    .menu-line {
+      width: 25px;
+      height: 3px;
+      background: #555;
+      margin: 3px 0;
+      transition: all 0.3s ease;
+    }
+
+    body.dark-mode .menu-line {
+      background: #aaa;
+    }
+
+    .menu-btn.active .menu-line:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+
+    .menu-btn.active .menu-line:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-btn.active .menu-line:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+
+    /* Navigation Menu */
+    .nav-menu {
+      position: fixed;
+      top: 0;
+      right: -300px;
+      width: 300px;
+      height: 100vh;
+      background: #e0e0e0;
+      box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+      transition: right 0.4s ease-in-out;
+      z-index: 99;
+      padding: 80px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    /* Hide scrollbar for nav menu */
+    .nav-menu::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-menu {
+      -ms-overflow-style: none;
+      /* IE and Edge */
+      scrollbar-width: none;
+      /* Firefox */
+    }
+
+    body.dark-mode .nav-menu {
+      background: #333;
+      box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-menu.active {
+      right: 0;
+    }
+
+    .nav-header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    body.dark-mode .nav-header {
+      border-bottom: 1px solid #555;
+    }
+
+    .nav-header h2 {
+      margin: 0;
+      color: #555;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    body.dark-mode .nav-header h2 {
+      color: #eee;
+    }
+
+    .nav-items {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .nav-item {
+      padding: 15px;
+      border-radius: 10px;
+      background: #e0e0e0;
+      box-shadow:
+        3px 3px 5px rgba(0, 0, 0, 0.1),
+        -3px -3px 5px rgba(255, 255, 255, 0.8);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    body.dark-mode .nav-item {
+      background: #333;
+      box-shadow:
+        3px 3px 5px rgba(0, 0, 0, 0.3),
+        -3px -3px 5px rgba(60, 60, 60, 0.5);
+    }
+
+    .nav-item:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        5px 5px 10px rgba(0, 0, 0, 0.1),
+        -5px -5px 10px rgba(255, 255, 255, 0.8);
+    }
+
+    body.dark-mode .nav-item:hover {
+      box-shadow:
+        5px 5px 10px rgba(0, 0, 0, 0.3),
+        -5px -5px 10px rgba(60, 60, 60, 0.5);
+    }
+
+    .nav-icon {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-text {
+      font-size: 18px;
+      color: #555;
+      flex: 1;
+    }
+
+    body.dark-mode .nav-text {
+      color: #eee;
+    }
+
+    /* Theme toggle in menu */
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 30px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 22px;
+      width: 22px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked+.slider {
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    }
+
+    input:checked+.slider:before {
+      transform: translateX(30px);
+    }
+
+    /* Overlay */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 98;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Main content */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .section-title {
+      font-size: 28px;
+      margin: 40px 0 20px;
+      color: #555;
+      text-align: center;
+      position: relative;
+    }
+
+    body.dark-mode .section-title {
+      color: #eee;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, #6a11cb, #2575fc);
+      margin: 10px auto;
+      border-radius: 2px;
+    }
+
+    /* Card styles */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
+      margin: 30px 0;
+    }
+
+    .card {
+      background: #e0e0e0;
+      border-radius: 15px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow:
+        8px 8px 16px rgba(0, 0, 0, 0.1),
+        -8px -8px 16px rgba(255, 255, 255, 0.8);
+    }
+
+    body.dark-mode .card {
+      background: #333;
+      box-shadow:
+        8px 8px 16px rgba(0, 0, 0, 0.3),
+        -8px -8px 16px rgba(60, 60, 60, 0.5);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow:
+        12px 12px 24px rgba(0, 0, 0, 0.15),
+        -12px -12px 24px rgba(255, 255, 255, 0.8);
+    }
+
+    body.dark-mode .card:hover {
+      box-shadow:
+        12px 12px 24px rgba(0, 0, 0, 0.4),
+        -12px -12px 24px rgba(60, 60, 60, 0.6);
+    }
+
+    .card-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 20px;
+    }
+
+    .card-title {
+      font-size: 20px;
+      margin: 0 0 10px;
+      color: #555;
+    }
+
+    body.dark-mode .card-title {
+      color: #eee;
+    }
+
+    .card-text {
+      color: #777;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    body.dark-mode .card-text {
+      color: #ccc;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 15px;
+    }
+
+    .card-btn {
+      padding: 8px 16px;
+      background: #e0e0e0;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #555;
+      box-shadow:
+        3px 3px 5px rgba(0, 0, 0, 0.1),
+        -3px -3px 5px rgba(255, 255, 255, 0.8);
+      transition: all 0.2s ease;
+    }
+
+    body.dark-mode .card-btn {
+      background: #333;
+      color: #eee;
+      box-shadow:
+        3px 3px 5px rgba(0, 0, 0, 0.3),
+        -3px -3px 5px rgba(60, 60, 60, 0.5);
+    }
+
+    .card-btn:hover {
+      box-shadow:
+        inset 3px 3px 5px rgba(0, 0, 0, 0.1),
+        inset -3px -3px 5px rgba(255, 255, 255, 0.8);
+    }
+
+    body.dark-mode .card-btn:hover {
+      box-shadow:
+        inset 3px 3px 5px rgba(0, 0, 0, 0.3),
+        inset -3px -3px 5px rgba(60, 60, 60, 0.5);
+    }
+
+    .card-date {
+      font-size: 14px;
+      color: #888;
+    }
+
+    body.dark-mode .card-date {
+      color: #aaa;
+    }
+
+    /* Floating Action Button */
+    .fab {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.2),
+        0 8px 20px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      z-index: 90;
+    }
+
+    .fab:hover {
+      transform: scale(1.1) rotate(90deg);
+      box-shadow:
+        0 6px 15px rgba(0, 0, 0, 0.3),
+        0 12px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Notification badge */
+    .notification-badge {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      width: 25px;
+      height: 25px;
+      background: linear-gradient(135deg, #ff7e5f, #feb47b);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      z-index: 102;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.1);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    /* Back to top button */
+    .back-to-top {
+      position: fixed;
+      bottom: 110px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: #e0e0e0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow:
+        3px 3px 5px rgba(0, 0, 0, 0.2),
+        -3px -3px 5px rgba(255, 255, 255, 0.8);
+      transition: all 0.3s ease;
+      z-index: 90;
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    body.dark-mode .back-to-top {
+      background: #333;
+      box-shadow:
+        3px 3px 5px rgba(0, 0, 0, 0.5),
+        -3px -3px 5px rgba(60, 60, 60, 0.8);
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-to-top:hover {
+      transform: translateY(-5px);
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 30px;
+      margin-top: 50px;
+      color: #777;
+      border-top: 1px solid #ccc;
+    }
+
+    body.dark-mode .footer {
+      color: #aaa;
+      border-top: 1px solid #555;
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      padding: 15px 0;
+      margin-bottom: 20px;
+      color: #777;
+      font-size: 14px;
+    }
+
+    .breadcrumb a {
+      color: #555;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    body.dark-mode .breadcrumb a {
+      color: #aaa;
+    }
+
+    .breadcrumb a:hover {
+      color: #6a11cb;
+    }
+
+    .breadcrumb span {
+      margin: 0 10px;
+    }
+
+    /* Progress bar */
+    .progress-container {
+      position: fixed;
+      top: 70px;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: transparent;
+      z-index: 1000;
+    }
+
+    .progress-bar {
+      height: 4px;
+      background: linear-gradient(90deg, #6a11cb, #2575fc);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #e0e0e0;
+      color: #555;
+      padding: 15px 25px;
+      border-radius: 30px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    body.dark-mode .toast {
+      background: #333;
+      color: #eee;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    }
+
+    .toast.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Tooltip */
+    .tooltip {
+      position: relative;
+      display: inline-block;
+    }
+
+    .tooltip .tooltip-text {
+      visibility: hidden;
+      width: 120px;
+      background: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 14px;
+    }
+
+    .tooltip .tooltip-text::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #333 transparent transparent transparent;
+    }
+
+    .tooltip:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    /* Loading spinner */
+    .spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Badge */
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      color: white;
+      margin-left: 8px;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      margin: 30px 0;
+      border-bottom: 1px solid #ccc;
+    }
+
+    body.dark-mode .tabs {
+      border-bottom: 1px solid #555;
+    }
+
+    .tab {
+      padding: 12px 24px;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .tab.active {
+      border-bottom: 3px solid #6a11cb;
+      color: #6a11cb;
+      font-weight: bold;
+    }
+
+    body.dark-mode .tab.active {
+      color: #2575fc;
+      border-bottom: 3px solid #2575fc;
+    }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .modal.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background: #e0e0e0;
+      border-radius: 15px;
+      padding: 30px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    body.dark-mode .modal-content {
+      background: #333;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #555;
+    }
+
+    body.dark-mode .modal-close {
+      color: #eee;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .search-container:hover .search-input {
+        width: 200px;
+      }
+
+      .card-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      }
+
+      .login-btn span {
+        display: none;
+      }
+
+      .login-btn {
+        padding: 12px;
+        border-radius: 50%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header {
+        padding: 0 10px;
+      }
+
+      .logo {
+        font-size: 20px;
+      }
+
+      .logo span {
+        display: none;
+      }
+
+      .search-container:hover .search-input {
+        width: 180px;
+      }
+
+      .nav-menu {
+        width: 260px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Overlay for closing menu when clicking outside -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Notification Badge -->
+  <div class="notification-badge">3</div>
+
+  <!-- Progress Bar -->
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">
+    <i class="fas fa-utensils"></i>
+    <span>Welcome to Savory Delights!</span>
+  </div>
+
+  <!-- Reservation Modal -->
+  <div class="modal" id="reservationModal">
+    <div class="modal-content">
+      <button class="modal-close" id="modalClose">&times;</button>
+      <h2>Make a Reservation</h2>
+      <p>Book your table for an unforgettable dining experience</p>
+      <form style="margin-top: 20px;" id="reservationForm">
+        <div style="margin-bottom: 15px;">
+          <label for="name" style="display: block; margin-bottom: 5px;">Name</label>
+          <input type="text" id="name" required
+            style="width: 100%; padding: 10px; border-radius: 8px; border: none; background: #e0e0e0; box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1), inset -2px -2px 5px rgba(255, 255, 255, 0.8);">
+        </div>
+        <div style="margin-bottom: 15px;">
+          <label for="email" style="display: block; margin-bottom: 5px;">Email</label>
+          <input type="email" id="email" required
+            style="width: 100%; padding: 10px; border-radius: 8px; border: none; background: #e0e0e0; box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1), inset -2px -2px 5px rgba(255, 255, 255, 0.8);">
+        </div>
+        <div style="margin-bottom: 15px;">
+          <label for="phone" style="display: block; margin-bottom: 5px;">Phone</label>
+          <input type="tel" id="phone" required
+            style="width: 100%; padding: 10px; border-radius: 8px; border: none; background: #e0e0e0; box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1), inset -2px -2px 5px rgba(255, 255, 255, 0.8);">
+        </div>
+        <div style="margin-bottom: 15px;">
+          <label for="date" style="display: block; margin-bottom: 5px;">Date</label>
+          <input type="date" id="date" required
+            style="width: 100%; padding: 10px; border-radius: 8px; border: none; background: #e0e0e0; box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1), inset -2px -2px 5px rgba(255, 255, 255, 0.8);">
+        </div>
+        <div style="margin-bottom: 15px;">
+          <label for="time" style="display: block; margin-bottom: 5px;">Time</label>
+          <input type="time" id="time" required
+            style="width: 100%; padding: 10px; border-radius: 8px; border: none; background: #e0e0e0; box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1), inset -2px -2px 5px rgba(255, 255, 255, 0.8);">
+        </div>
+        <div style="margin-bottom: 15px;">
+          <label for="guests" style="display: block; margin-bottom: 5px;">Number of Guests</label>
+          <input type="number" id="guests" min="1" max="20" required
+            style="width: 100%; padding: 10px; border-radius: 8px; border: none; background: #e0e0e0; box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1), inset -2px -2px 5px rgba(255, 255, 255, 0.8);">
+        </div>
+        <button type="submit"
+          style="width: 100%; padding: 12px; background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">Book
+          Table</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">
+      <div class="logo-icon"><i class="fas fa-utensils"></i></div>
+      <span>Savory Delights</span>
+    </div>
+
+    <!-- Header right section with search, reservation and menu -->
+    <div class="header-right">
+      <!-- Search Bar with Hover Functionality -->
+      <div class="search-container">
+        <input type="text" class="search-input" placeholder="Search menu...">
+        <div class="search-icon">
+          <i class="fas fa-search"></i>
+        </div>
+      </div>
+
+      <!-- Reservation Button -->
+      <button class="login-btn" id="reservationBtn">
+        <i class="fas fa-calendar-alt"></i>
+        <span>Reserve</span>
+      </button>
+
+      <!-- Menu Button -->
+      <div class="menu-btn" id="menuBtn">
+        <div class="menu-line"></div>
+        <div class="menu-line"></div>
+        <div class="menu-line"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation Menu -->
+  <nav class="nav-menu" id="navMenu">
+    <div class="nav-header">
+      <h2><i class="fas fa-bars"></i> Menu</h2>
+    </div>
+    <div class="nav-items">
+      <div class="nav-item">
+        <div class="nav-icon"><i class="fas fa-home"></i></div>
+        <div class="nav-text">Home</div>
+      </div>
+      <div class="nav-item">
+        <div class="nav-icon"><i class="fas fa-utensils"></i></div>
+        <div class="nav-text">Our Menu</div>
+      </div>
+      <div class="nav-item">
+        <div class="nav-icon"><i class="fas fa-image"></i></div>
+        <div class="nav-text">Gallery</div>
+      </div>
+      <div class="nav-item">
+        <div class="nav-icon"><i class="fas fa-star"></i></div>
+        <div class="nav-text">Special Offers</div>
+      </div>
+      <div class="nav-item">
+        <div class="nav-icon"><i class="fas fa-phone"></i></div>
+        <div class="nav-text">Contact</div>
+      </div>
+      <div class="nav-item">
+        <div class="nav-icon"><i class="fas fa-info-circle"></i></div>
+        <div class="nav-text">About Us</div>
+      </div>
+
+      <!-- Theme Toggle in Menu -->
+      <div class="nav-item">
+        <div class="nav-icon"><i class="fas fa-moon"></i></div>
+        <div class="nav-text">Dark Mode</div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="themeToggle">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="#">Home</a>
+      <span>/</span>
+      <a href="#">Restaurant</a>
+      <span>/</span>
+      <a href="#">Main Page</a>
+    </div>
+
+    <h2 class="section-title">Welcome to Savory Delights</h2>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <div class="tab active" data-tab="tab1">Menu</div>
+      <div class="tab" data-tab="tab2">Specials</div>
+      <div class="tab" data-tab="tab3">Reviews</div>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <img
+          src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+          alt="Pasta Dish" class="card-img">
+        <div class="card-content">
+          <h3 class="card-title">Gourmet Pasta <span class="badge">CHEF'S PICK</span></h3>
+          <p class="card-text">Handmade pasta with truffle cream sauce and fresh parmesan. Our signature dish loved by
+            all.</p>
+          <div class="card-footer">
+            <span class="card-date">$24.99</span>
+            <button class="card-btn">Order Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <img
+          src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+          alt="Fresh Salad" class="card-img">
+        <div class="card-content">
+          <h3 class="card-title">Mediterranean Salad</h3>
+          <p class="card-text">Fresh greens, olives, feta cheese, and our special house dressing. A healthy and
+            delicious choice.</p>
+          <div class="card-footer">
+            <span class="card-date">$16.99</span>
+            <button class="card-btn">Order Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <img
+          src="https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+          alt="Steak Dish" class="card-img">
+        <div class="card-content">
+          <h3 class="card-title">Prime Ribeye Steak <span class="tooltip">Info
+              <span class="tooltip-text">Grilled to perfection!</span>
+            </span></h3>
+          <p class="card-text">Premium cut ribeye served with roasted vegetables and your choice of sauce. Cooked to
+            your preference.</p>
+          <div class="card-footer">
+            <span class="card-date">$32.99</span>
+            <button class="card-btn">Order Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-title">Today's Specials</h2>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-content">
+          <h3 class="card-title">Happy Hour</h3>
+          <p class="card-text">Join us for happy hour from 4PM to 6PM daily. 50% off on select appetizers and $5
+            cocktails.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-content">
+          <h3 class="card-title">Weekend Brunch</h3>
+          <p class="card-text">Enjoy our special brunch menu every Saturday and Sunday from 10AM to 2PM with bottomless
+            mimosas.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-content">
+          <h3 class="card-title">Date Night Package</h3>
+          <p class="card-text">Three-course meal for two with a complimentary dessert. Available every Thursday evening.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-title">Customer Favorites</h2>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-content">
+          <h3 class="card-title">Seafood Platter</h3>
+          <p class="card-text">A generous selection of fresh seafood including lobster, shrimp, oysters, and crab legs.
+          </p>
+          <div class="card-footer">
+            <span class="card-date">$45.99</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-content">
+          <h3 class="card-title">Vegetarian Delight</h3>
+          <p class="card-text">A colorful array of seasonal vegetables prepared with our special herbs and spices.</p>
+          <div class="card-footer">
+            <span class="card-date">$18.99</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-content">
+          <h3 class="card-title">Chocolate Fondant</h3>
+          <p class="card-text">Warm chocolate cake with a molten center, served with vanilla ice cream. The perfect
+            ending to your meal.</p>
+          <div class="card-footer">
+            <span class="card-date">$9.99</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Modal -->
+  <div class="modal" id="orderModal">
+    <div class="modal-content">
+      <button class="modal-close" id="orderModalClose">&times;</button>
+      <h2>Place Your Order</h2>
+      <div id="orderItemDetails"></div>
+      <form style="margin-top: 20px;" id="orderForm">
+        <div style="margin-bottom: 15px;">
+          <label for="orderName" style="display: block; margin-bottom: 5px;">Your Name</label>
+          <input type="text" id="orderName" required
+            style="width: 100%; padding: 10px; border-radius: 8px; border: none; background: #e0e0e0; box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1), inset -2px -2px 5px rgba(255, 255, 255, 0.8);">
+        </div>
+        <div style="margin-bottom: 15px;">
+          <label for="orderEmail" style="display: block; margin-bottom: 5px;">Email</label>
+          <input type="email" id="orderEmail" required
+            style="width: 100%; padding: 10px; border-radius: 8px; border: none; background: #e0e0e0; box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1), inset -2px -2px 5px rgba(255, 255, 255, 0.8);">
+        </div>
+        <div style="margin-bottom: 15px;">
+          <label for="orderPhone" style="display: block; margin-bottom: 5px;">Phone</label>
+          <input type="tel" id="orderPhone" required
+            style="width: 100%; padding: 10px; border-radius: 8px; border: none; background: #e0e0e0; box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1), inset -2px -2px 5px rgba(255, 255, 255, 0.8);">
+        </div>
+        <div style="margin-bottom: 15px;">
+          <label for="orderQuantity" style="display: block; margin-bottom: 5px;">Quantity</label>
+          <input type="number" id="orderQuantity" min="1" value="1" required
+            style="width: 100%; padding: 10px; border-radius: 8px; border: none; background: #e0e0e0; box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1), inset -2px -2px 5px rgba(255, 255, 255, 0.8);">
+        </div>
+        <div style="margin-bottom: 15px;">
+          <label for="specialInstructions" style="display: block; margin-bottom: 5px;">Special Instructions</label>
+          <textarea id="specialInstructions"
+            style="width: 100%; padding: 10px; border-radius: 8px; border: none; background: #e0e0e0; box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1), inset -2px -2px 5px rgba(255, 255, 255, 0.8);"></textarea>
+        </div>
+        <button type="submit"
+          style="width: 100%; padding: 12px; background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">Place
+          Order</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2023 Savory Delights Restaurant. All rights reserved.</p>
+    <p>123 Gourmet Street, Foodville • (555) 123-4567 • Open daily 11AM-10PM</p>
+  </footer>
+
+  <!-- Floating Action Button -->
+  <div class="fab" id="fab">
+    <i class="fas fa-utensils"></i>
+  </div>
+
+  <!-- Back to Top Button -->
+  <div class="back-to-top" id="backToTop">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+
+  <script>
+    // API configuration
+    const API_BASE_URL = 'http://localhost:3000/api';
+    // API endpoints
+    const API_ENDPOINTS = {
+      reservations: `${API_BASE_URL}/reservations`,
+      menu: `${API_BASE_URL}/menu`,
+      orders: `${API_BASE_URL}/orders`,
+      health: `${API_BASE_URL}/health`
+    };
+
+    //Global variables
+    let selectedOrderItem = null;
+    let currentMenuItem = null;
+
+    // DOM Elements
+    const reservationBtn = document.getElementById('reservationBtn');
+    const reservationModal = document.getElementById('reservationModal');
+    const modalClose = document.getElementById('modalClose');
+    const reservationForm = document.getElementById('reservationForm');
+    const menuBtn = document.getElementById('menuBtn');
+    const navMenu = document.getElementById('navMenu');
+    const overlay = document.getElementById('overlay');
+    const themeToggle = document.getElementById('themeToggle');
+    const orderModal = document.getElementById('orderModal');
+    const orderModalClose = document.getElementById('orderModalClose');
+    const orderForm = document.getElementById('orderForm');
+    const fab = document.getElementById('fab');
+    const backToTopBtn = document.getElementById('backToTop');
+    const tabs = document.querySelectorAll('.tab');
+    const cardButtons = document.querySelectorAll('.card-btn');
+
+    //#################################################
+    // Event Listeners
+    //#################################################
+    themeToggle.addEventListener('change', () => {
+      document.body.classList.toggle('dark-mode');
+
+      // Save preference to localStorage
+      const isDarkMode = document.body.classList.contains('dark-mode');
+      localStorage.setItem('darkMode', isDarkMode);
+    });
+
+    // Check for saved dark mode preference
+    if (localStorage.getItem('darkMode') === 'true') {
+      document.body.classList.add('dark-mode');
+      themeToggle.checked = true;
+    }
+
+    menuBtn.addEventListener('click', () => {
+      menuBtn.classList.toggle('active');
+      navMenu.classList.toggle('active');
+      overlay.classList.toggle('active');
+    });
+
+    // Close menu when clicking on overlay
+    overlay.addEventListener('click', () => {
+      menuBtn.classList.remove('active');
+      navMenu.classList.remove('active');
+      overlay.classList.remove('active');
+    });
+
+    // Close menu when clicking on a nav item
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', (e) => {
+        // Don't close if clicking on the theme toggle
+        if (!e.target.closest('.toggle-switch')) {
+          menuBtn.classList.remove('active');
+          navMenu.classList.remove('active');
+          overlay.classList.remove('active');
+        }
+      });
+    });
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        backToTopBtn.classList.add('visible');
+      } else {
+        backToTopBtn.classList.remove('visible');
+      }
+
+      // Update progress bar
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById("progressBar").style.width = scrolled + "%";
+    });
+
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    fab.addEventListener('click', () => {
+      document.getElementById('reservationBtn').click();
+    });
+
+    reservationBtn.addEventListener('click', () => {
+      reservationModal.classList.add('visible');
+    });
+
+    modalClose.addEventListener('click', () => {
+      reservationModal.classList.remove('visible');
+    });
+
+    // Close modal when clicking outside
+    reservationModal.addEventListener('click', (e) => {
+      if (e.target === reservationModal) {
+        reservationModal.classList.remove('visible');
+      }
+    });
+
+    // Handle reservation form submission
+    reservationForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Show success toast
+      const toast = document.getElementById('toast');
+      toast.querySelector('span').textContent = 'Reservation request sent!';
+      toast.classList.add('visible');
+
+      // Hide after 3 seconds
+      setTimeout(() => {
+        toast.classList.remove('visible');
+      }, 3000);
+
+      // Close modal
+      reservationModal.classList.remove('visible');
+
+      // Reset form
+      reservationForm.reset();
+    });
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Remove active class from all tabs
+        tabs.forEach(t => t.classList.remove('active'));
+
+        // Add active class to clicked tab
+        tab.classList.add('active');
+
+        // Here you would typically show the corresponding tab content
+      });
+    });
+
+    // Show welcome toast on page load
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const toast = document.getElementById('toast');
+        toast.classList.add('visible');
+
+        // Hide after 3 seconds
+        setTimeout(() => {
+          toast.classList.remove('visible');
+        }, 3000);
+      }, 1000);
+    });
+
+    // Handle reservation form submission
+    reservationForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Get form data
+      const reservationData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        date: document.getElementById('date').value,
+        time: document.getElementById('time').value,
+        guests: parseInt(document.getElementById('guests').value),
+        specialRequests: '' // You can add a field for this if needed
+      };
+
+      try {
+        // Show loading state
+        const submitBtn = reservationForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.innerHTML = '<div class="spinner"></div> Processing...';
+        submitBtn.disabled = true;
+
+        // Send reservation to backend
+        const response = await fetch(API_ENDPOINTS.reservations, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(reservationData)
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Failed to create reservation');
+        }
+
+        const result = await response.json();
+
+        // Show success toast
+        const toast = document.getElementById('toast');
+        toast.querySelector('span').textContent = 'Reservation confirmed successfully!';
+        toast.classList.add('visible');
+
+        // Hide after 3 seconds
+        setTimeout(() => {
+          toast.classList.remove('visible');
+        }, 3000);
+
+      } catch (error) {
+        console.error('Reservation error:', error);
+
+        // Show error toast
+        const toast = document.getElementById('toast');
+        toast.querySelector('span').textContent = `Error: ${error.message}`;
+        toast.style.background = '#ff4757';
+        toast.classList.add('visible');
+
+        setTimeout(() => {
+          toast.classList.remove('visible');
+          toast.style.background = '';
+        }, 3000);
+      } finally {
+        // Reset button state
+        const submitBtn = reservationForm.querySelector('button[type="submit"]');
+        submitBtn.textContent = 'Book Table';
+        submitBtn.disabled = false;
+
+        // Close modal and reset form on success only
+        if (!error) {
+          reservationModal.classList.remove('visible');
+          reservationForm.reset();
+        }
+      }
+    });
+
+    // Load menu when page loads
+    window.addEventListener('DOMContentLoaded', async () => {
+      const menuItems = await loadMenuItems();
+      renderMenuItems(menuItems);
+    });
+
+    // Handle order form submission
+    orderForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const orderData = {
+        customerName: document.getElementById('orderName').value,
+        customerEmail: document.getElementById('orderEmail').value,
+        customerPhone: document.getElementById('orderPhone').value,
+        specialInstructions: document.getElementById('specialInstructions').value,
+        items: [
+          {
+            menuItemId: currentMenuItem.id,
+            quantity: parseInt(document.getElementById('orderQuantity').value),
+            price: currentMenuItem.price
+          }
+        ]
+      };
+
+      try {
+        // Show loading state
+        const submitBtn = orderForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.innerHTML = '<div class="spinner"></div> Processing...';
+        submitBtn.disabled = true;
+
+        // Send order to backend
+        const response = await fetch(API_ENDPOINTS.orders, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(orderData)
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Failed to place order');
+        }
+
+        // Show success toast
+        const toast = document.getElementById('toast');
+        toast.querySelector('span').textContent = 'Order placed successfully!';
+        toast.classList.add('visible');
+
+        // Hide after 3 seconds
+        setTimeout(() => {
+          toast.classList.remove('visible');
+        }, 3000);
+
+        // Close modal and reset form
+        orderModal.classList.remove('visible');
+        orderForm.reset();
+
+      } catch (error) {
+        console.error('Order error:', error);
+
+        // Show error toast
+        const toast = document.getElementById('toast');
+        toast.querySelector('span').textContent = `Error: ${error.message}`;
+        toast.style.background = '#ff4757';
+        toast.classList.add('visible');
+
+        setTimeout(() => {
+          toast.classList.remove('visible');
+          toast.style.background = '';
+        }, 3000);
+      } finally {
+        // Reset button state
+        const submitBtn = orderForm.querySelector('button[type="submit"]');
+        submitBtn.textContent = 'Place Order';
+        submitBtn.disabled = false;
+      }
+    });
+
+    // Close order modal
+    orderModalClose.addEventListener('click', () => {
+      orderModal.classList.remove('visible');
+    });
+
+    // Close modal when clicking outside
+    orderModal.addEventListener('click', (e) => {
+      if (e.target === orderModal) {
+        orderModal.classList.remove('visible');
+      }
+    });
+
+    // Function to fetch menu items
+    async function loadMenuItems() {
+      try {
+        const response = await fetch(API_ENDPOINTS.menu);
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch menu items');
+        }
+
+        const data = await response.json();
+        return data.menuItems;
+      } catch (error) {
+        console.error('Error loading menu:', error);
+        // Fallback to default menu items if API fails
+        return [
+          {
+            id: 1,
+            name: "Gourmet Pasta",
+            description: "Handmade pasta with truffle cream sauce and fresh parmesan",
+            price: 24.99,
+            category: "Main Course",
+            imageUrl: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38"
+          },
+          {
+            id: 2,
+            name: "Mediterranean Salad",
+            description: "Fresh greens, olives, feta cheese, and our special house dressing",
+            price: 16.99,
+            category: "Appetizer",
+            imageUrl: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c"
+          },
+          {
+            id: 3,
+            name: "Prime Ribeye Steak",
+            description: "Premium cut ribeye served with roasted vegetables and your choice of sauce",
+            price: 32.99,
+            category: "Main Course",
+            imageUrl: "https://images.unsplash.com/photo-1572802419224-296b0aeee0d9"
+          }
+          // Add other fallback items as needed
+        ];
+      }
+    }
+
+    // Function to render menu items
+    function renderMenuItems(menuItems) {
+      const menuGrid = document.querySelector('.card-grid');
+
+      // Clear existing content (if any)
+      menuGrid.innerHTML = '';
+
+      // Create cards for each menu item
+      menuItems.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+        <img src="${item.imageUrl}" alt="${item.name}" class="card-img">
+        <div class="card-content">
+          <h3 class="card-title">${item.name}</h3>
+          <p class="card-text">${item.description}</p>
+          <div class="card-footer">
+            <span class="card-date">$${item.price.toFixed(2)}</span>
+            <button class="card-btn" data-item-id="${item.id}">Order Now</button>
+          </div>
+        </div>
+      `;
+        menuGrid.appendChild(card);
+      });
+
+      // Add event listeners to order buttons
+      document.querySelectorAll('.card-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const itemId = e.target.getAttribute('data-item-id');
+          // Implement order functionality here
+          showOrderModal(itemId);
+        });
+      });
+    }
+
+    // Function to show order modal
+    function showOrderModal(itemId) {
+      // Find the menu item (in a real app, you'd fetch from your loaded menu items)
+      const menuItems = []; // This would be your loaded menu items
+      currentMenuItem = menuItems.find(item => item.id == itemId);
+
+      if (currentMenuItem) {
+        document.getElementById('orderItemDetails').innerHTML = `
+        <div style="display: flex; align-items: center; margin-bottom: 20px; padding: 15px; background: #f5f5f5; border-radius: 10px;">
+          <img src="${currentMenuItem.imageUrl}" alt="${currentMenuItem.name}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">
+          <div style="margin-left: 15px;">
+            <h3 style="margin: 0 0 5px;">${currentMenuItem.name}</h3>
+            <p style="margin: 0; color: #777;">$${currentMenuItem.price.toFixed(2)}</p>
+          </div>
+        </div>
+      `;
+
+        orderModal.classList.add('visible');
+      }
+    }
+
+    // Check if backend is running
+    async function checkBackendHealth() {
+      try {
+        const response = await fetch(API_ENDPOINTS.health);
+        if (!response.ok) {
+          throw new Error('Backend not responding');
+        }
+        console.log('Backend is connected successfully');
+      } catch (error) {
+        console.error('Backend connection failed:', error);
+
+        // Show warning toast
+        const toast = document.getElementById('toast');
+        toast.querySelector('span').textContent = 'Cannot connect to server. Some features may not work.';
+        toast.style.background = '#ffa502';
+        toast.classList.add('visible');
+
+        setTimeout(() => {
+          toast.classList.remove('visible');
+          toast.style.background = '';
+        }, 5000);
+      }
+    }
+
+    // Run health check when page loads
+    window.addEventListener('load', checkBackendHealth);
+  </script>
+
+</body>
+
+</html>
+
+<!-- 
+show the user the reserved days and times in the reservation form as unavailable options
+the reservation form should not be submitted if the selected date and time is already reserved
+implement a search bar in the menu section to filter menu items by name or ingredient
+implement a search bar in the reservation section to search available dates and times, disabling already reserved slots
+implement user reviews and ratings for each menu item, displayed below the item description
+implement user authentication to allow users to create accounts and view their past reservations 
+implement a contact form in the footer section that sends messages to the restaurant's email
+implement pagination in the menu section if there are more than 6 menu items
+-->
